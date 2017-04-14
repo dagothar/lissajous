@@ -84,8 +84,8 @@ $(document).ready(function() {
   
   function initialize() {
     canvas = $('#view').get(0);
-    $('.draw-axes').prop(':checked', true)
-    $('.draw-grid').prop(':checked', true)
+    $('.draw-axes').prop('checked', true)
+    $('.draw-grid').prop('checked', true)
   
     /* initialize THREEjs */
     scene     = new THREE.Scene();

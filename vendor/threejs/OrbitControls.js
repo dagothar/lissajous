@@ -652,7 +652,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		event.preventDefault();
+		//event.preventDefault();
 
 		if ( event.button === scope.mouseButtons.ORBIT ) {
 
@@ -670,7 +670,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 			state = STATE.DOLLY;
 
-		} else if ( event.button === scope.mouseButtons.PAN ) {
+		}/* else if ( event.button === scope.mouseButtons.PAN ) {
 
 			if ( scope.enablePan === false ) return;
 
@@ -678,7 +678,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 			state = STATE.PAN;
 
-		}
+		}*/
 
 		if ( state !== STATE.NONE ) {
 
