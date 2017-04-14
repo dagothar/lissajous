@@ -1,38 +1,33 @@
 var Lissajous = (function() {
   
-  function Lissajous(A, w, p) {
+  function Lissajous(params) {
     
-    //var A[3] = { 1.0, 1.0, 1.0 };
-    //var w[3] = { 1.0, 1.0, 1.0 };
-    //var p[3] = { 0.0, 0.0, 0.0 };
+    var Ax = params['Ax'];
+    var wx = params['wx'];
+    var px = params['px'];
+    var Ay = params['Ay'];
+    var wy = params['wy'];
+    var py = params['py'];
+    var Az = params['Az'];
+    var wz = params['wz'];
+    var pz = params['pz'];
     
-    var A = A, w = w, p = p;
-    
-    var material = new THREE.LineBasicMaterial({ color: 0x00ff00, linewidth: 3 });
+    var material = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 3 });
     
     
-    this.getA = function() { return A; };
-    this.setA = function(x) { A = x; };
-    this.getW = function() { return W; };
-    this.setW = function(x) { w = x; };
-    this.getP = function() { return A; };
-    this.setPP = function(x) { p = x; };
-    
+    this.getAx = function() { return Ax; };
+    this.setAx = function(v) { Ax = v; };    
     
     this.x = function(t) {
       return {
-        x: A[0] * Math.sin(2*Math.PI*w[0]*t + p[0]),
-        y: A[1] * Math.sin(2*Math.PI*w[1]*t + p[1]),
-        z: A[2] * Math.sin(2*Math.PI*w[2]*t + p[2])
+        x: Ax * Math.sin(2*Math.PI*wx*t + px),
+        y: Ay * Math.sin(2*Math.PI*wy*t + py),
+        z: Az * Math.sin(2*Math.PI*wz*t + pz)
       };
     };
     
     
     this.render = function(scene, renderer) {
-      
-      var prev_line = scene.getObjectByName("curve");
-      scene.remove(prev_line);
-      
       var geometry = new THREE.Geometry();
       
       for (var t = 0.0; t <= 2*Math.PI; t += 0.001) {

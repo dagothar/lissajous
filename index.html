@@ -20,8 +20,23 @@
   <div class="container">
     <div class="row">
       
+      <!--div class="col-md-2">
+        
+        <div class="panel panel-default">
+          
+          <div class="panel-heading">Parameters</div>
+          
+          <div class="panel-body">
+            
+            
+          </div>
+          
+        </div>
+      </div-->
+      
+            
       <div class="col-md-9">
-        <div>
+        <div class="canvas-container">
           <canvas id="view" width="800" height="600"></canvas>
         </div>
       </div>
@@ -43,52 +58,66 @@
               <button type="button" class="button-stop btn btn-default btn-block">Pause <span class="glyphicon glyphicon-pause"></span></button>
             </div-->
             
-            <!-- parameters -->
             <form class="form-horizontal">
               
               <div class="form-group">
-                <label class="control-label col-sm-6">Ax</label>
-                <div class="col-sm-6">
+                <label class="control-label col-sm-4">Ax</label>
+                <div class="col-sm-8">
                   <input type="number" class="form-control parameter parameter-Ax" value="1" step="0.1">
                 </div>
               </div>
               
               <div class="form-group">
-                <label class="control-label col-sm-6">Ay</label>
-                <div class="col-sm-6">
+                <label class="control-label col-sm-4">Ay</label>
+                <div class="col-sm-8">
                   <input type="number" class="form-control parameter parameter-Ay" value="1" step="0.1">
                 </div>
               </div>
               
+              
               <div class="form-group">
-                <label class="control-label col-sm-6">Az</label>
-                <div class="col-sm-6">
+                <label class="control-label col-sm-4">Az</label>
+                <div class="col-sm-8">
                   <input type="number" class="form-control parameter parameter-Az" value="1" step="0.1">
                 </div>
               </div>
               
               <div class="form-group">
-                <label class="control-label col-sm-6">ωx</label>
-                <div class="col-sm-6">
+                <label class="control-label col-sm-4">ωx</label>
+                <div class="col-sm-8">
                   <input type="number" class="form-control parameter parameter-wx" value="1" step="1.0">
                 </div>
               </div>
               
               <div class="form-group">
-                <label class="control-label col-sm-6">ωy</label>
-                <div class="col-sm-6">
+                <label class="control-label col-sm-4">ωy</label>
+                <div class="col-sm-8">
                   <input type="number" class="form-control parameter parameter-wy" value="2" step="1.0">
                 </div>
               </div>
               
               <div class="form-group">
-                <label class="control-label col-sm-6">ωz</label>
-                <div class="col-sm-6">
+                <label class="control-label col-sm-4">ωz</label>
+                <div class="col-sm-8">
                   <input type="number" class="form-control parameter parameter-wz" value="3" step="1.0">
                 </div>
               </div>
-              
             </form>
+            
+            <!-- controls -->
+            <div class="row">
+              <label class="col-sm-6">Bg.</label>
+              <div class="col-sm-6">
+                <input type="color" name="background-color" value="#ffffff"/>
+              </div>
+            </div>
+            
+            <div class="row">
+              <label class="col-sm-6">Line</label>
+              <div class="col-sm-6">
+                <input type="color" name="background-color" value="#00ff00"/>
+              </div>
+            </div>
             
           </div>
         </div>        
@@ -107,7 +136,8 @@
   <script src="vendor/jquery/jquery-3.2.0.min.js"></script>
   <script src="vendor/threejs/three.min.js"></script>
   <script src="vendor/threejs/OrbitControls.js"></script>
-  <script src="vendor/threejs/CanvasRenderer.js"></script>
+  <script src="scripts/grid.js"></script>
+  <script src="scripts/axes.js"></script>
   <script src="scripts/lissajous.js"></script>
   <script src="scripts/main.js"></script>
 </body>
