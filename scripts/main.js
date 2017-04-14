@@ -22,12 +22,26 @@ $(document).ready(function() {
     wx: 1.0,
     px: 0.0,
     Ay: 1.0,
-    wy: 2.0,
-    py: 0.0,
+    wy: 1.0,
+    py: Math.PI/2,
     Az: 1.0,
-    wz: 3.0,
-    pz: 0.0
+    wz: 0.0,
+    pz: Math.PI
   };
+  
+  
+  function resetParameters() {
+	  $('.parameter-Ax').val(defaultParams.Ax);
+	  $('.parameter-wx').val(defaultParams.wx);
+	  $('.slider-px').val(50*defaultParams.px/Math.PI);
+	  $('.parameter-Ay').val(defaultParams.Ay);
+	  $('.parameter-wy').val(defaultParams.wy);
+	  $('.slider-py').val(50*defaultParams.py/Math.PI);
+    $('.parameter-Az').val(defaultParams.Az);
+	  $('.parameter-wz').val(defaultParams.wz);
+	  $('.slider-pz').val(50*defaultParams.pz/Math.PI);
+  };
+  resetParameters();
   
   
   function getParameters() {
@@ -35,19 +49,27 @@ $(document).ready(function() {
     
     params.Ax = parseFloat($('.parameter-Ax').val());
     params.wx = parseFloat($('.parameter-wx').val());
-    //params.px = parseFloat($('.parameter-px').val());
+    params.px = 0.02*Math.PI*$('.slider-px').val();
     params.Ay = parseFloat($('.parameter-Ay').val());
     params.wy = parseFloat($('.parameter-wy').val());
-    //params.py = parseFloat($('.parameter-py').val());
+    params.py = 0.02*Math.PI*$('.slider-py').val();
     params.Az = parseFloat($('.parameter-Az').val());
     params.wz = parseFloat($('.parameter-wz').val());
-    //params.pz = parseFloat($('.parameter-pz').val());
+    params.pz = 0.02*Math.PI*$('.slider-pz').val();
     
     return params;
   };
-  
-  
   var params = getParameters();
+  
+  
+  function update() {
+    $('.px').text(params.px.toFixed(2));
+    $('.py').text(params.py.toFixed(2));
+    $('.pz').text(params.pz.toFixed(2));
+  };
+  update();  
+  
+  
   console.log(params);
   var curve = new Lissajous(params);
   var grid = new Grid(2.0, 0.25);
@@ -76,6 +98,7 @@ $(document).ready(function() {
     controls.addEventListener('change', render);
     controls.zoom0 = 1.5;
     controls.reset();
+    controls.enablePan = false;
     
     //light = new THREE.PointLight(0xffffff, 1.0);
     //scene.add(light);
@@ -84,7 +107,10 @@ $(document).ready(function() {
   
   
   function requestAnimationFrame(renderer) {
-    scene     = new THREE.Scene();
+    while (scene.children.length)
+    {
+      scene.remove(scene.children[0]);
+    }
     
     axes.render(scene, renderer);
     grid.render(scene, renderer);
@@ -108,18 +134,22 @@ $(document).ready(function() {
   render();
   
   
-  $('.parameter').change(function() {
-    var Ax = $('.parameter-Ax').val();
-    var Ay = $('.parameter-Ay').val();
-    var Az = $('.parameter-Az').val();
-    var wx = $('.parameter-wx').val();
-    var wy = $('.parameter-wy').val();
-    var wz = $('.parameter-wz').val();
+  $('.parameter').on('input change', function() {
+    params = getParameters();    
+    curve.setParams(params);
     
-    curve.setA([Ax, Ay, Az]);
-    curve.setW([wx, wy, wz]);
-    
+    update();
     animate();
     render();
   });
+  
+  $('.button-reset').click(function() {
+    resetParameters();
+    params = getParameters();    
+    curve.setParams(params);
+    update();
+    animate();
+    render();
+  });
+  
 });

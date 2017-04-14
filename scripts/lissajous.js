@@ -1,20 +1,25 @@
 var Lissajous = (function() {
   
   function Lissajous(params) {
+    var Ax, wx, px;
+    var Ay, wy, py;
+    var Az, wz, pz;
     
-    var Ax = params['Ax'];
-    var wx = params['wx'];
-    var px = params['px'];
-    var Ay = params['Ay'];
-    var wy = params['wy'];
-    var py = params['py'];
-    var Az = params['Az'];
-    var wz = params['wz'];
-    var pz = params['pz'];
+    this.setParams = function(params) {
+      Ax = params['Ax'];
+      wx = params['wx'];
+      px = params['px'];
+      Ay = params['Ay'];
+      wy = params['wy'];
+      py = params['py'];
+      Az = params['Az'];
+      wz = params['wz'];
+      pz = params['pz'];
+    };
+    this.setParams(params);
     
     var material = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 3 });
-    
-    
+
     this.getAx = function() { return Ax; };
     this.setAx = function(v) { Ax = v; };    
     
