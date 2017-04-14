@@ -26,7 +26,9 @@ $(document).ready(function() {
     py: Math.PI/2,
     Az: 1.0,
     wz: 0.0,
-    pz: Math.PI
+    pz: Math.PI,
+    backgroundColor: '#ffffff',
+    lineColor: '#000000',
   };
   
   
@@ -40,6 +42,8 @@ $(document).ready(function() {
     $('.parameter-Az').val(defaultParams.Az);
 	  $('.parameter-wz').val(defaultParams.wz);
 	  $('.slider-pz').val(50*defaultParams.pz/Math.PI);
+	  $('.background-color').val(defaultParams.backgroundColor);
+	  $('.line-color').val(defaultParams.lineColor);
   };
   resetParameters();
   
@@ -56,6 +60,8 @@ $(document).ready(function() {
     params.Az = parseFloat($('.parameter-Az').val());
     params.wz = parseFloat($('.parameter-wz').val());
     params.pz = 0.02*Math.PI*$('.slider-pz').val();
+    params.backgroundColor = $('.background-color').val();
+    params.lineColor = $('.line-color').val();
     
     return params;
   };
@@ -78,6 +84,8 @@ $(document).ready(function() {
   
   function initialize() {
     canvas = $('#view').get(0);
+    $('.draw-axes').prop(':checked', true)
+    $('.draw-grid').prop(':checked', true)
   
     /* initialize THREEjs */
     scene     = new THREE.Scene();
@@ -112,8 +120,8 @@ $(document).ready(function() {
       scene.remove(scene.children[0]);
     }
     
-    axes.render(scene, renderer);
-    grid.render(scene, renderer);
+    if ($('.draw-axes').is(':checked')) axes.render(scene, renderer);
+    if ($('.draw-grid').is(':checked')) grid.render(scene, renderer);
     curve.render(scene, renderer);
   };
   
@@ -137,19 +145,23 @@ $(document).ready(function() {
   $('.parameter').on('input change', function() {
     params = getParameters();    
     curve.setParams(params);
-    
+    renderer.setClearColor(params.backgroundColor);
     update();
     animate();
     render();
   });
   
+  
   $('.button-reset').click(function() {
+    $('.draw-axes').prop(':checked', true)
+    $('.draw-grid').prop(':checked', true)
     resetParameters();
     params = getParameters();    
     curve.setParams(params);
     update();
     animate();
     render();
+    controls.reset();
   });
   
 });

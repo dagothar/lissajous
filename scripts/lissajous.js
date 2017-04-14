@@ -4,6 +4,7 @@ var Lissajous = (function() {
     var Ax, wx, px;
     var Ay, wy, py;
     var Az, wz, pz;
+    var lineColor;
     
     this.setParams = function(params) {
       Ax = params['Ax'];
@@ -15,10 +16,9 @@ var Lissajous = (function() {
       Az = params['Az'];
       wz = params['wz'];
       pz = params['pz'];
+      lineColor = params['lineColor'];
     };
     this.setParams(params);
-    
-    var material = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 3 });
 
     this.getAx = function() { return Ax; };
     this.setAx = function(v) { Ax = v; };    
@@ -39,6 +39,8 @@ var Lissajous = (function() {
         var p = this.x(t);
         geometry.vertices.push(new THREE.Vector3(p.x, p.y, p.z));
       }
+      
+      var material = new THREE.LineBasicMaterial({ color: lineColor, linewidth: 3 });
       
       var line = new THREE.Line(geometry, material);
       line.name = "curve";
