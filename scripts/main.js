@@ -7,6 +7,8 @@ $(document).ready(function() {
   var controls;
   var light;
   
+  var curve = new Lissajous([ 1, 1, 1 ], [ 1, 2, 4 ], [ 0, 0, 0 ]);
+  
   
   function initialize() {
     canvas = $('#view').get(0);
@@ -16,7 +18,7 @@ $(document).ready(function() {
     //camera    = new THREE.PerspectiveCamera(75, 1.0*canvas.width/canvas.height, 0.1, 1000);
     camera    = new THREE.OrthographicCamera(-canvas.width/200, canvas.width/200, -canvas.height/200, canvas.height/200, -10, 10);
     renderer  = new THREE.WebGLRenderer({ antialias: true, canvas: canvas });
-    controls  = new THREE.OrbitControls(camera);
+    controls  = new THREE.OrbitControls(camera, canvas);
     
     scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
      
@@ -35,7 +37,6 @@ $(document).ready(function() {
   
   
   function requestAnimationFrame(renderer) {
-    var curve = new Lissajous([ 1, 1, 1 ], [ 1, 2, 4 ], [ 0, 0, 0 ]);
     curve.render(scene, renderer);
   };
   
@@ -53,4 +54,20 @@ $(document).ready(function() {
   
   initialize();
   animate();
+  
+  
+  $('.parameter').change(function() {
+    var Ax = $('.parameter-Ax').val();
+    var Ay = $('.parameter-Ay').val();
+    var Az = $('.parameter-Az').val();
+    var wx = $('.parameter-wx').val();
+    var wy = $('.parameter-wy').val();
+    var wz = $('.parameter-wz').val();
+    
+    curve.setA([Ax, Ay, Az]);
+    curve.setW([wx, wy, wz]);
+    
+    animate();
+    render();
+  });
 });
