@@ -1,0 +1,9 @@
+.navbar-brand { float: None; }
+
+input { width: 100%; }
+
+#layer1 {
+  position:absolute;
+  left:0px;
+  top:0px;
+}
